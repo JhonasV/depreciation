@@ -46,9 +46,6 @@ const Sidebar = () => (
             <i className="fas fa-history"></i> Historial
           </NavbarItem>
         </NavLink>
-        <NavbarItem>
-          <i className="far fa-window-close"></i> Salir
-        </NavbarItem>
       </Navbar>
     </nav>
   </div>
