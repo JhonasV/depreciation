@@ -19,13 +19,13 @@ const GridItem = styled.div<{ size: Number; image?: any }>`
 const Main = styled.main`
   padding: 1em;
   width: 95%;
-  height: 78vh;
+  height: auto;
   border: 2px solid #eee;
   background: #fff;
   margin-left: auto;
   margin-right: auto;
   margin-top: 2em;
-  border-radius:1rem;
+  border-radius: 1rem;
 `;
 
 const Layout = ({ children }: { children: any }) => {

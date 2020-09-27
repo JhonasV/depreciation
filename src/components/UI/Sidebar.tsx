@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 const Navbar = styled.ul`
   width: 100%;
   height: auto;
-  background-color: #54a0ff;
+  background-color: #e67e22;
   height: 90vh;
 
   a {
@@ -38,19 +38,9 @@ const Sidebar = () => (
   <div>
     <nav>
       <Navbar>
-        {/* <NavLink to="/" activeClassName="active">
-          <NavbarItem>
-            <i className="fas fa-home"></i> Home
-          </NavbarItem>
-        </NavLink> */}
         <NavLink to="/" activeClassName="active">
           <NavbarItem>
             <i className="fas fa-calculator"></i> Calcular
-          </NavbarItem>
-        </NavLink>
-        <NavLink to="/history" activeClassName="active">
-          <NavbarItem>
-            <i className="fas fa-history"></i> Historial
           </NavbarItem>
         </NavLink>
       </Navbar>

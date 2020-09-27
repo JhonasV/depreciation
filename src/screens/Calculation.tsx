@@ -15,7 +15,7 @@ const Calculation = () => {
         setSalary={setSalary}
       />
 
-      <CalculationTable result={result} />
+      <CalculationTable breakDown={result} />
     </>
   );
 };

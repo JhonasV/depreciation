@@ -6,6 +6,7 @@ import HistoryService from "../../services/HistoryService";
 import CalculationService from "../../services/CalculationService";
 import { Result } from "../../models/Result";
 import propTypes from "prop-types";
+import { Breakdown } from "../../models/Breakdown";
 // import electron from "electron";
 const Form = styled.form`
   padding: 1em;
@@ -34,8 +35,8 @@ const CalculationForm = ({
   const processDiscount = (event: any) => {
     event.preventDefault();
     if (validate(salary)) {
-      let total: Result = CalculationService.Calculate(salary);
-      HistoryService.Set(total);
+      let total: Breakdown = CalculationService.Calculate(Number(salary));
+      // HistoryService.Set(total);
       setResult(total);
     }
   };
@@ -70,7 +71,7 @@ const CalculationForm = ({
 
   return (
     <Form onSubmit={(e) => processDiscount(e)}>
-      <h2>Ingrese su sueldo:</h2>
+      <h2>Ingrese una cantidad:</h2>
       <br />
       <Input
         type="number"
