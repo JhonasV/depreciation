@@ -1,5 +1,5 @@
 # Discount-electron-react
-Project which calculate the ARS and AFP discount
+Project which breakdown in coins the given value
 
 ## Technologies
 - Electron (Electron Forge)
