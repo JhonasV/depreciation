@@ -1,4 +1,4 @@
-# Discount-electron-react
+# Breakdown-electron-react
 Project which breakdown in coins the given value
 
 ## Technologies
