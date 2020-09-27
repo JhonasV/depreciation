@@ -9,4 +9,4 @@ Project which calculate the ARS and AFP discount
 
 ## Preview
 
-![descuento-gif](https://user-images.githubusercontent.com/31710347/94199660-2b606880-fe87-11ea-8a2e-27cfa8ff1eea.gif)
+![descuento-1 1 0](https://user-images.githubusercontent.com/31710347/94353706-15e36e00-0042-11eb-9c14-bdb2746cc0e0.gif)
