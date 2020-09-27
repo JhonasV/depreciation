@@ -5,14 +5,12 @@ import styled from "styled-components";
 import { Button } from "../components/UI/Buttons";
 
 const HistoryWrapper = styled.div`
-  margin-top: 2em;
-  padding: 1em;
-  width: 90%;
+  width: 95%;
   margin-left: auto;
   margin-right: auto;
   background-color: #fff;
-  height: auto;
-  border: 1px solid #eee;
+  height: 100%;
+  overflow: auto;
 `;
 
 const TitleWrapper = styled.div`
@@ -41,11 +39,11 @@ const History = () => {
         {history &&
           history.map((item: any, i: string) => (
             <tr key={i}>
-              <td>{item.afpDiscount}</td>
-              <td>{item.arsDiscount}</td>
-              <td>{item.income}</td>
-              <td>{item.totalDiscount}</td>
-              <td>{item.netIncome}</td>
+              <td>RD${item.afpDiscount}</td>
+              <td>RD${item.arsDiscount}</td>
+              <td>RD${item.income}</td>
+              <td>RD${item.totalDiscount}</td>
+              <td>RD${item.netIncome}</td>
             </tr>
           ))}
       </tbody>

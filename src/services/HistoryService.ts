@@ -2,9 +2,9 @@ import { Result } from "../models/Result";
 
 const key = "HISTORY_DISCOUNT";
 const Set = (history: Result): void => {
-  let historyArray: Result[] = [];
+  const historyArray: Result[] = [];
   if (Exists()) {
-    let items = Get();
+    const items = Get();
     historyArray.push(...items, history);
   } else {
     historyArray.push(history);
@@ -17,7 +17,7 @@ const Get = (): Result[] => {
   return JSON.parse(localStorage.getItem(key));
 };
 
-const Exists = (): Boolean => {
+const Exists = (): boolean => {
   return Get() !== null;
 };
 

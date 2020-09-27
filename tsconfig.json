@@ -15,5 +15,5 @@
     },
     "jsx": "react"
   },
-  "include": ["src/**/*", "src/assets/custom.d.ts"]
+  "include": ["src/**/*", "src/assets/custom.d.ts", ".webpack/main/preload.js"]
 }

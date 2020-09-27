@@ -5,8 +5,3 @@ export interface Result {
   netIncome: number;
   income: number;
 }
-
-// let arsDiscount = (income * arsPorcent)/100;
-// let afpDiscount = (income * afpPorcent)/100;;
-// let totalDiscount = arsDiscount + afpDiscount;
-// let netIncome = income - totalDiscount;

@@ -1,11 +1,21 @@
 import React, { useState } from "react";
+import CalculationTable from "../components/Calculation/CalculationTable";
 import CalculationForm from "../components/Calculation/CalculationForm";
 
 const Calculation = () => {
   const [salary, setSalary] = useState(0);
+  const [result, setResult] = useState(null);
+
   return (
     <>
-      <CalculationForm salary={salary.toString()} setSalary={setSalary} />
+      <CalculationForm
+        result={result}
+        setResult={setResult}
+        salary={salary.toString()}
+        setSalary={setSalary}
+      />
+
+      <CalculationTable result={result} />
     </>
   );
 };

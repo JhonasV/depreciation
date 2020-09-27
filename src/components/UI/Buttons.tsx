@@ -8,11 +8,20 @@ export const ButtonBase = styled.button`
   border-radius: 4px;
 `;
 
-export const Button = styled(ButtonBase)<{ primary?: any; secondary?: any }>`
+export const Button = styled(ButtonBase)<
+  { primary?: any; secondary?: any; marginTop?: any; block?: any }
+>`
+  ${(props) =>
+  props.block &&
+  `
+    display: block;
+  `};
+  
+  margin-top: ${(props) => props.marginTop ? +props.marginTop + "em;" : null};
   margin-right: 1rem;
   ${(props) =>
-    props.primary &&
-    `
+  props.primary &&
+  `
     background-color: #54a0ff;
       color: #fff;
       &:hover {
@@ -21,8 +30,8 @@ export const Button = styled(ButtonBase)<{ primary?: any; secondary?: any }>`
   `}
 
   ${(props) =>
-    props.secondary &&
-    `
+  props.secondary &&
+  `
       background-color: black;
       color: #fff;
       &:hover {

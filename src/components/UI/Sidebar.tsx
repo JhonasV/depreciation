@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+
 const Navbar = styled.ul`
   width: 100%;
   height: auto;
@@ -9,6 +10,12 @@ const Navbar = styled.ul`
 
   a {
     text-decoration: none;
+  }
+
+  .active {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    color: black;
   }
 `;
 
@@ -21,7 +28,7 @@ const NavbarItem = styled.li`
   font-weight: bold;
   font-size: 17px;
   &:hover {
-    background-color: #eee;
+    background-color: rgba(0, 0, 0, 0.2);
     cursor: pointer;
     color: black;
   }
@@ -31,12 +38,12 @@ const Sidebar = () => (
   <div>
     <nav>
       <Navbar>
-        <NavLink to="/" activeClassName="active">
+        {/* <NavLink to="/" activeClassName="active">
           <NavbarItem>
             <i className="fas fa-home"></i> Home
           </NavbarItem>
-        </NavLink>
-        <NavLink to="/calculation" activeClassName="active">
+        </NavLink> */}
+        <NavLink to="/" activeClassName="active">
           <NavbarItem>
             <i className="fas fa-calculator"></i> Calcular
           </NavbarItem>
