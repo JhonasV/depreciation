@@ -1,4 +1,4 @@
-# Breakdown-electron-react
+# Depreciation-electron-react
 
 Project which calculate actives depreciation
 
