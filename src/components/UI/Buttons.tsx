@@ -22,7 +22,7 @@ export const Button = styled(ButtonBase)<
   ${(props) =>
   props.primary &&
   `
-    background-color: #e67e22;
+    background-color: #2ecc71;
       color: #fff;
       &:hover {
         background-color: black;
@@ -35,7 +35,7 @@ export const Button = styled(ButtonBase)<
       background-color: black;
       color: #fff;
       &:hover {
-        background-color: #e67e22;
+        background-color: #2ecc71;
       }
   `}
 

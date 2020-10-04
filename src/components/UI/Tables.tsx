@@ -9,7 +9,7 @@ export const Table = styled.table`
   th {
     padding: 1rem;
    
-    border: 1px solid #54a0ff;
+    border: 1px solid #2ecc71;
   }
   th {
     background-color: #eee;

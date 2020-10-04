@@ -13,7 +13,7 @@ const HeaderContainer = styled.header`
 
 const Logo = styled.a`
   text-decoration: none;
-  background-color: #e67e22;
+  background-color: #2ecc71;
   padding: 0.5rem;
   color: #fff;
   border-radius: 4px;
@@ -24,7 +24,7 @@ const Logo = styled.a`
 const Header = () => {
   return (
     <HeaderContainer>
-      <Logo>Desglose de monedas</Logo>
+      <Logo>Depreciación activos fijos</Logo>
     </HeaderContainer>
   );
 };

@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 const Navbar = styled.ul`
   width: 100%;
   height: auto;
-  background-color: #e67e22;
+  background-color: #2ecc71;
   height: 90vh;
 
   a {

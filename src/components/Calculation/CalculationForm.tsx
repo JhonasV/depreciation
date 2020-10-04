@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../UI/Buttons";
-import { Input } from "../UI/Controls";
-import HistoryService from "../../services/HistoryService";
+import { Input, Select, Label } from "../UI/Controls";
 import CalculationService from "../../services/CalculationService";
 import { Result } from "../../models/Result";
 import propTypes from "prop-types";
 import { Breakdown } from "../../models/Breakdown";
-// import electron from "electron";
+import { IStraightLines } from "../../models/StraightLine";
+import { IAddDigits } from "../../models/AddDigits";
+import { Method } from "../../config/const";
+
 const Form = styled.form`
   padding: 1em;
   width: 90%;
@@ -32,13 +34,36 @@ const CalculationForm = ({
   setResult,
   result,
 }: CalculationFormProps) => {
-  const processDiscount = (event: any) => {
+  const [method, setMethod] = useState<number>(0);
+  const [straightLine, setStraightLine] = useState<IStraightLines>({
+    annualDepreciation: 0,
+    totalAssetValue: 0,
+    rescueValue: 0,
+    usefulLife: 0,
+  });
+
+  const [digits, setDigits] = useState<IAddDigits>({
+    assetDepreciationBase: 0,
+    yearsAssetLife: 0,
+  });
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (validate(salary)) {
-      let total: Breakdown = CalculationService.Calculate(Number(salary));
-      // HistoryService.Set(total);
-      setResult(total);
+
+    if (Method.LineaRecta === method) {
+      // Validate inputs
+      // Calculate
+      console.log(straightLine);
     }
+
+    if (Method.SumaDigitos === method) {
+      console.log(digits);
+    }
+
+    // if (validate(salary)) {
+    //   let total: Breakdown = CalculationService.Calculate(Number(salary));
+    //   setResult(total);
+    // }
   };
   const clear = () => {
     setResult(null);
@@ -69,31 +94,102 @@ const CalculationForm = ({
     return isValid;
   };
 
-  return (
-    <Form onSubmit={(e) => processDiscount(e)}>
-      <h2>Ingrese una cantidad:</h2>
-      <br />
+  const onSelectHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setMethod(Number(event.target.value));
+  };
+
+  const renderStraightLinesForm = () => {
+    return (<>
+      <Label>
+        Depreciación anual
+      </Label>
       <Input
         type="number"
-        value={salary}
-        onChange={(event) => setSalary(event.target.value)}
+        value={straightLine.annualDepreciation}
+        onChange={(event) =>
+          setStraightLine(
+            { ...straightLine, annualDepreciation: event.target.valueAsNumber },
+          )}
       />
+
+      <Label>Valor total del activo</Label>
+      <Input
+        type="number"
+        value={straightLine.totalAssetValue}
+        onChange={(event) =>
+          setStraightLine(
+            { ...straightLine, totalAssetValue: event.target.valueAsNumber },
+          )}
+      />
+      <Label>Valor de rescate</Label>
+      <Input
+        type="number"
+        value={straightLine.rescueValue}
+        onChange={(event) =>
+          setStraightLine(
+            { ...straightLine, rescueValue: event.target.valueAsNumber },
+          )}
+      />
+      <Label>Vida util</Label>
+      <Input
+        type="number"
+        value={straightLine.usefulLife}
+        onChange={(event) =>
+          setStraightLine(
+            { ...straightLine, usefulLife: event.target.valueAsNumber },
+          )}
+      />
+    </>);
+  };
+
+  const renderAddDigitsForm = () => {
+    return (
+      <>
+        <Label>
+          Base depreciación del activo
+        </Label>
+        <Input
+          type="number"
+          value={digits.assetDepreciationBase}
+          onChange={(event) =>
+            setDigits(
+              { ...digits, assetDepreciationBase: event.target.valueAsNumber },
+            )}
+        />
+
+        <Label>Años de vida del activo</Label>
+        <Input
+          type="number"
+          value={digits.yearsAssetLife}
+          onChange={(event) =>
+            setDigits(
+              { ...digits, yearsAssetLife: event.target.valueAsNumber },
+            )}
+        />
+      </>
+    );
+  };
+
+  return (
+    <Form onSubmit={(e) => onSubmit(e)}>
+      <Select onChange={(e) => onSelectHandler(e)}>
+        <option defaultChecked value={Method.SeleccionarMetodo}>
+          Seleccionar método
+        </option>
+        <option value={Method.LineaRecta}>Línea recta</option>
+        <option value={Method.SumaDigitos}>Suma de digitos</option>
+      </Select>
+      {method === Method.LineaRecta && renderStraightLinesForm()}
+      {method === Method.SumaDigitos && renderAddDigitsForm()}
       <br />
       <Button marginTop="1" primary>
         Calcular
       </Button>
-      {result && (
-        <Button onClick={() => clear()} secondary>
-          Limpiar
-        </Button>
-      )}
+      {result && <Button onClick={() => clear()} secondary>Limpiar</Button>}
     </Form>
   );
 };
-// salary: string;
-// setSalary: any;
-// setResult: any;
-// result: Result;
+
 CalculationForm.propTypes = {
   salary: propTypes.string.isRequired,
   setSalary: propTypes.any.isRequired,
