@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import CalculationTable from "../components/Calculation/CalculationTable";
 import CalculationForm from "../components/Calculation/CalculationForm";
+import { IAddDigitsResult } from "../models/AddDigits";
 
 const Calculation = () => {
-  const [salary, setSalary] = useState(0);
-  const [result, setResult] = useState(null);
+  // const [salary, setSalary] = useState(0);
+  const [addDigitResult, setAddDigitResult] = useState<
+    IAddDigitsResult[] | null
+  >(null);
 
   return (
     <>
       <CalculationForm
-        result={result}
-        setResult={setResult}
-        salary={salary.toString()}
-        setSalary={setSalary}
+        addDigitResult={addDigitResult}
+        setAddDigitResult={setAddDigitResult}
       />
-
-      <CalculationTable breakDown={result} />
+      <CalculationTable addDigitResult={addDigitResult} />
     </>
   );
 };

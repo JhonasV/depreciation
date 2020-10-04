@@ -7,7 +7,7 @@ import { Result } from "../../models/Result";
 import propTypes from "prop-types";
 import { Breakdown } from "../../models/Breakdown";
 import { IStraightLines } from "../../models/StraightLine";
-import { IAddDigits } from "../../models/AddDigits";
+import { IAddDigits, IAddDigitsResult } from "../../models/AddDigits";
 import { Method } from "../../config/const";
 
 const Form = styled.form`
@@ -22,18 +22,13 @@ const Form = styled.form`
 `;
 
 type CalculationFormProps = {
-  salary: string;
-  setSalary: any;
-  setResult: any;
-  result: Result;
+  setAddDigitResult: any;
+  addDigitResult: IAddDigitsResult[];
 };
 
-const CalculationForm = ({
-  salary,
-  setSalary,
-  setResult,
-  result,
-}: CalculationFormProps) => {
+const CalculationForm = (
+  { setAddDigitResult, addDigitResult }: CalculationFormProps,
+) => {
   const [method, setMethod] = useState<number>(0);
   const [straightLine, setStraightLine] = useState<IStraightLines>({
     annualDepreciation: 0,
@@ -47,71 +42,52 @@ const CalculationForm = ({
     yearsAssetLife: 0,
   });
 
+  const [straightLineResult, setStraightLineResult] = useState<number | null>(
+    null,
+  );
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (Method.LineaRecta === method) {
-      // Validate inputs
-      // Calculate
-      console.log(straightLine);
+      let result: number = CalculationService.CalculateStraightLine(
+        straightLine,
+      );
+      setStraightLineResult(result);
     }
 
     if (Method.SumaDigitos === method) {
-      console.log(digits);
+      let result = CalculationService.CalculateAddDigits(digits);
+      setAddDigitResult(result);
     }
-
-    // if (validate(salary)) {
-    //   let total: Breakdown = CalculationService.Calculate(Number(salary));
-    //   setResult(total);
-    // }
   };
   const clear = () => {
-    setResult(null);
-    setSalary(0);
-  };
-  const validate = (salary: string): boolean => {
-    let isValid: boolean = true;
-    let message: string = "";
-    const income = Number(salary);
-    try {
-      if (isNaN(income)) {
-        message = "Debe de introducir un salario válido";
-        isValid = false;
-      }
-      if (income < 0 || income === 0) {
-        message = "Debe de introducir un salario mayor a 0";
-        isValid = false;
-      }
-    } catch (error) {
-      message =
-        "Hubo un error al calcular el descuento, intente de nuevo más tarde.";
-      isValid = false;
+    if (method === Method.LineaRecta) {
+      setStraightLine({
+        annualDepreciation: 0,
+        totalAssetValue: 0,
+        rescueValue: 0,
+        usefulLife: 0,
+      });
+      setStraightLineResult(null);
     }
 
-    if (!isValid) {
-      alert(message);
+    if (method === Method.SumaDigitos) {
+      setAddDigitResult(null);
+      setDigits({
+        assetDepreciationBase: 0,
+        yearsAssetLife: 0,
+      });
     }
-    return isValid;
   };
 
   const onSelectHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    clear();
     setMethod(Number(event.target.value));
   };
 
   const renderStraightLinesForm = () => {
     return (<>
-      <Label>
-        Depreciación anual
-      </Label>
-      <Input
-        type="number"
-        value={straightLine.annualDepreciation}
-        onChange={(event) =>
-          setStraightLine(
-            { ...straightLine, annualDepreciation: event.target.valueAsNumber },
-          )}
-      />
-
       <Label>Valor total del activo</Label>
       <Input
         type="number"
@@ -121,16 +97,7 @@ const CalculationForm = ({
             { ...straightLine, totalAssetValue: event.target.valueAsNumber },
           )}
       />
-      <Label>Valor de rescate</Label>
-      <Input
-        type="number"
-        value={straightLine.rescueValue}
-        onChange={(event) =>
-          setStraightLine(
-            { ...straightLine, rescueValue: event.target.valueAsNumber },
-          )}
-      />
-      <Label>Vida util</Label>
+      <Label>Vida util (años)</Label>
       <Input
         type="number"
         value={straightLine.usefulLife}
@@ -139,6 +106,14 @@ const CalculationForm = ({
             { ...straightLine, usefulLife: event.target.valueAsNumber },
           )}
       />
+      {straightLineResult && (<>
+        <Label>Depreciación por año</Label>
+        <Input
+          readOnly={true}
+          type="number"
+          value={straightLineResult}
+        />
+      </>)}
     </>);
   };
 
@@ -185,16 +160,17 @@ const CalculationForm = ({
       <Button marginTop="1" primary>
         Calcular
       </Button>
-      {result && <Button onClick={() => clear()} secondary>Limpiar</Button>}
+      {addDigitResult &&
+        <Button onClick={() => clear()} secondary>Limpiar</Button>}
+      {straightLineResult &&
+        <Button onClick={() => clear()} secondary>Limpiar</Button>}
     </Form>
   );
 };
 
 CalculationForm.propTypes = {
-  salary: propTypes.string.isRequired,
-  setSalary: propTypes.any.isRequired,
-  setResult: propTypes.any.isRequired,
-  result: propTypes.object.isRequired,
+  setAddDigitResult: propTypes.any.isRequired,
+  addDigitResult: propTypes.any.isRequired,
 };
 
 export default CalculationForm;

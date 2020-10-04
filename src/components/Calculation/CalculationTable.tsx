@@ -2,6 +2,8 @@ import React from "react";
 import propTypes from "prop-types";
 import styled from "styled-components";
 import { Breakdown } from "../../models/Breakdown";
+import { IAddDigitsResult } from "../../models/AddDigits";
+import { Table } from "../UI/Tables";
 
 const ListResult = styled.ul`
   background-color: #eee;
@@ -23,29 +25,47 @@ const ListResult = styled.ul`
 `;
 
 interface ICalculationTableProps {
-  breakDown: Breakdown;
+  addDigitResult: IAddDigitsResult[];
 }
 
-const CalculationTable = ({ breakDown }: ICalculationTableProps) => {
-  const renderResult = (breakDown: Breakdown) => {
-    console.log(breakDown);
-    return breakDown.values.map((item: String, i: number) => (
-      <li key={i}>{item}</li>
+const CalculationTable = ({ addDigitResult }: ICalculationTableProps) => {
+  // const renderResult = (breakDown: Breakdown) => {
+  //   console.log(breakDown);
+  //   return breakDown.values.map((item: String, i: number) => (
+  //     <li key={i}>{item}</li>
+  //   ));
+  // };
+
+  const renderTBody = (addDigitResult: IAddDigitsResult[]) => {
+    return addDigitResult.map((item: IAddDigitsResult, i: number) => (
+      <tr key={i}>
+        <td>{item.years}</td>
+        <td>{item.assetDepreciationBase}</td>
+        <td>{item.total}</td>
+      </tr>
     ));
   };
 
   return (
     <>
-      {breakDown ? (
-        <>
-          <ListResult>
-            <li>
-              <h3>Desglose</h3>
-            </li>
-            {renderResult(breakDown)}
-          </ListResult>
-        </>
-      ) : null}
+      {addDigitResult
+        ? (
+          <>
+            <Table>
+              <thead>
+                <tr>
+                  <th>Año</th>
+                  <th>Total activo</th>
+                  <th>Depreciación</th>
+                </tr>
+              </thead>
+              <tbody>
+                {renderTBody(addDigitResult)}
+              </tbody>
+            </Table>
+          </>
+        )
+        : null}
     </>
   );
 };

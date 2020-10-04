@@ -1,7 +1,9 @@
 # Breakdown-electron-react
-Project which breakdown in coins the given value
+
+Project which calculate actives depreciation
 
 ## Technologies
+
 - Electron (Electron Forge)
 - ReactJs
 - Styled Components
@@ -9,5 +11,4 @@ Project which breakdown in coins the given value
 
 ## Preview
 
-![desglose](https://user-images.githubusercontent.com/31710347/94378127-dcb80600-00f4-11eb-9243-127da3f058c3.gif)
-
+![deprecation](http://g.recordit.co/kSbN0EyV4A.gif)
